@@ -7,6 +7,11 @@
   },
   "dependencies": {
     "express": "*",
+    "morgan": "*",
+    "body-parser": "*",
+    "method-override": "*",
+    "serve-static": "*",
+    "errorhandler": "*",
     "jade": "*",
     "mssql": "*",
     "config": "*"
