@@ -13,12 +13,12 @@ var config = {
 
 function getReports() {
     'use strict';
-    
+
     var retVal = null;
-    
+
     // get where clause - using config file for the time being
     var dbWhere = 'where LogEntryId > ' + dbConfig.lastProcessed;
-    
+
     console.log('Establishing DB connextion');
     var conn = new sql.Connection(config, function (err) {
         // check for error
@@ -26,7 +26,7 @@ function getReports() {
             console.error(err.stack);
         } else {
             console.log('Gathering reports run...');
- 
+
             // get the data
             var request = new sql.Request(conn);
             request.query('SELECT \'extranet-rep\' AS appName, * FROM dbo.InsightsExecutionLog ' + dbWhere, function (err, recordset) {
@@ -39,7 +39,7 @@ function getReports() {
             });
         }
     });
-    
+
     return retVal;
 }
 

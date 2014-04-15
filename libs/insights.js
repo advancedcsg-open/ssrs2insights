@@ -18,11 +18,11 @@ function send(recordset) {
     };
 
     console.dir(options);
-    
+
     if (true) {
         return;
     } else {
-        console.log('Sending to New Relic');  
+        console.log('Sending to New Relic');
         var req = https.request(options, function(res) {
             console.log('STATUS: ' + res.statusCode);
             console.log('HEADERS: ' + JSON.stringify(res.headers));
