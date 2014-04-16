@@ -14,6 +14,7 @@
     "errorhandler": "*",
     "jade": "*",
     "mssql": "*",
-    "config": "*"
+    "config": "*",
+    "yaml": "*"
   }
 }
