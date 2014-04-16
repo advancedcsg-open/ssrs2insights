@@ -25,4 +25,8 @@ build/Release
 node_modules
 
 # Config files
+<<<<<<< HEAD
 config
+=======
+config
+>>>>>>> 8ea234c4a988f22e6859eb07cc212320e8f0de9f
