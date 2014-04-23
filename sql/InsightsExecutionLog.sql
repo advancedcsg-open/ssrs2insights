@@ -9,6 +9,7 @@ SELECT
 	InstanceName,
 	COALESCE(C.Path, 'Unknown') AS ReportPath,
 	UserName AS 'user',
+  '' AS 'account',
 	CASE(RequestType)
 		WHEN 0 THEN 'Interactive'
 		WHEN 1 THEN 'Subscription'
