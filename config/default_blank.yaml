@@ -1,0 +1,13 @@
+Database:
+  server: [DATABASE IP OR ADDRESS]
+  database: ReportServer
+  user: [DATABASE USER NAME]
+  password: [DATABASE USER PASSWORD]
+  lastProcessed: 0
+  appName: [APPNAME TO IDENTIFY EVENTS IN INSIGHTS]
+
+Insights:
+  hostname: insights.newrelic.com
+  path: "/beta_api/accounts/[NEW RELIC ACCOUNT NUMBER]/events"
+  insertKey: [NEW RELIC INSIGHTS INSERT API KEY]
+  appId: [NEW RELIC APP ID]
