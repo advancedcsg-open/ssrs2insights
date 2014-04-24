@@ -11,3 +11,10 @@ Insights:
   path: "/beta_api/accounts/[NEW RELIC ACCOUNT NUMBER]/events"
   insertKey: [NEW RELIC INSIGHTS INSERT API KEY]
   appId: [NEW RELIC APP ID]
+
+DatabaseAccounts:
+  server: [DATABASE IP OR ADDRESS]
+  database: [DATABASE NAME]
+  user: [DATABASE USER NAME]
+  password: [DATABASE USER PASSWORD]
+  command: ["SELECT accountName as account FROM vwAccountUsers WHERE username = "]
