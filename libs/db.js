@@ -40,6 +40,7 @@ exports.getReports = function(insights) {
             console.info('Processing ' + recordset.length + ' SSRS report executions');
             dbConfig.lastProcessed = recordset[recordset.length - 1].LogEntryId;
             getAccount(recordset, function(data){
+              console.log(data[0].user + ' - ' + data[0].account);
               insights.send(data);
             });
           }
@@ -59,17 +60,17 @@ function getAccount(recordset, processed){
         console.error('DB connection failed: ' + err.stack);
         callback(err);
       } else {
-        console.log('Getting account for ' + record.user);
-
         // get the data
         var request = new sql.Request(conn);
-        request.query(dbConfigAccount + '\'' + record.user + '\'', function (err, accountset) {
+        request.query(dbConfigAccount.command + '\'' + record.user + '\'', function (err, accountset) {
           if (err) {
             console.error('Error retrieving account information for ' + record.user + ': ' + err.stack);
             callback(err);
           } else {
-            record.account = accountset[0].account;
-            callback();
+            if (accountset.length > 0) record.account = accountset[0].account;
+            else record.account = 'System';
+
+            callback(err, record);
           }
         });
       }
