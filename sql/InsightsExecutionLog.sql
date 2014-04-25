@@ -9,7 +9,7 @@ SELECT
 	InstanceName,
 	COALESCE(C.Path, 'Unknown') AS ReportPath,
 	UserName AS 'user',
-  '' AS 'account',
+	'' AS 'account',
 	CASE(RequestType)
 		WHEN 0 THEN 'Interactive'
 		WHEN 1 THEN 'Subscription'
@@ -28,10 +28,10 @@ SELECT
 		WHEN 8 THEN 'Sort'
 		ELSE 'Unknown'
 	END AS ReportAction,
-	TimeDataRetrieval,
-	TimeProcessing,
-	TimeRendering,
-	TimeProcessing + TimeRendering + TimeDataRetrieval AS duration,
+	CAST(TimeDataRetrieval AS FLOAT)/1000 AS TimeDataRetrieval,
+	CAST(TimeProcessing AS FLOAT)/1000 AS TimeProcessing,
+	CAST(TimeRendering AS FLOAT)/1000 AS TimeRendering,
+	CAST((TimeProcessing + TimeRendering + TimeDataRetrieval) AS FLOAT)/1000 AS duration,
 	CASE(Source)
 		WHEN 1 THEN 'Live'
 		WHEN 2 THEN 'Cache'
@@ -48,4 +48,3 @@ SELECT
 	DATEDIFF(second,{d '1970-01-01'},TimeStart) AS [timestamp]
 FROM ExecutionLogStorage EL WITH(NOLOCK)
 LEFT OUTER JOIN Catalog C WITH(NOLOCK) ON (EL.ReportID = C.ItemID)
-
