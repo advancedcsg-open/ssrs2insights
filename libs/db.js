@@ -39,7 +39,7 @@ exports.getReports = function(insights) {
           if (recordset.length > 0) {
             console.info('Processing ' + recordset.length + ' SSRS report executions');
             dbConfig.lastProcessed.set(recordset[recordset.length - 1].LogEntryId);
-            #dbConfig.lastProcessed = recordset[recordset.length - 1].LogEntryId;
+            //dbConfig.lastProcessed = recordset[recordset.length - 1].LogEntryId;
             getAccount(recordset, function(data){
               console.log(data[0].user + ' - ' + data[0].account);
               insights.send(data);
