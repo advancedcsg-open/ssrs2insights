@@ -15,6 +15,7 @@
     "jade": "*",
     "mssql": "*",
     "config": "0.4.37",
-    "async": "*"
+    "async": "*",
+    "yaml": "*"
   }
 }
