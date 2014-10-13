@@ -1,11 +1,14 @@
 USE ReportServer
 GO
 
+DROP VIEW [dbo].[InsightsExecutionLog]
+GO
+
 CREATE VIEW [dbo].[InsightsExecutionLog]
 AS
 SELECT
 	'SSRSReport' AS eventType,
-	LogEntryId,
+	CAST(LogEntryId AS INT) AS LogEntryId,
 	InstanceName,
 	COALESCE(C.Path, 'Unknown') AS ReportPath,
 	UserName AS 'user',
@@ -43,8 +46,8 @@ SELECT
 		ELSE 'Unknown'
 	END AS Source,
 	Status,
-	ByteCount,
-	[RowCount],
+	CAST(ByteCount AS float) AS ByteCount,
+	CAST([RowCount] AS float) AS [RowCount],
 	DATEDIFF(second,{d '1970-01-01'},TimeStart) AS [timestamp]
 FROM ExecutionLogStorage EL WITH(NOLOCK)
 LEFT OUTER JOIN Catalog C WITH(NOLOCK) ON (EL.ReportID = C.ItemID)
