@@ -78,6 +78,7 @@ function getAccount(recordset, processed){
   }, function(err, result){
     if (err) {
       console.error("Account retrieval failed: " + err.stack);
+      processed(recordset);
     } else {
       console.info("Account retrieval completed for " + result.length + " events.");
       processed(result);
