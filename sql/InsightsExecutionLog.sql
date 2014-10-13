@@ -4,7 +4,7 @@ GO
 CREATE VIEW [dbo].[InsightsExecutionLog]
 AS
 SELECT
-	'ProgressoReport' AS eventType,
+	'SSRSReport' AS eventType,
 	LogEntryId,
 	InstanceName,
 	COALESCE(C.Path, 'Unknown') AS ReportPath,
