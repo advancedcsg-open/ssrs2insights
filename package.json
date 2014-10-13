@@ -1,18 +1,11 @@
 {
   "name": "ssrs2insights",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "private": true,
   "scripts": {
     "start": "node app.js"
   },
   "dependencies": {
-    "express": "3.5.1",
-    "morgan": "*",
-    "body-parser": "*",
-    "method-override": "*",
-    "serve-static": "*",
-    "errorhandler": "*",
-    "jade": "*",
     "mssql": "*",
     "config": "0.4.37",
     "async": "*",
