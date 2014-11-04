@@ -1,10 +1,7 @@
-Database:
-  server: [DATABASE IP OR ADDRESS]
-  database: ReportServer
-  user: [DATABASE USER NAME]
-  password: [DATABASE USER PASSWORD]
+App:
   lastProcessed: 0
   appName: [APPNAME TO IDENTIFY EVENTS IN INSIGHTS]
+  accountCommand: ["SELECT accountName as account FROM vwAccountUsers WHERE username = "]
 
 Insights:
   hostname: insights.newrelic.com
@@ -12,9 +9,14 @@ Insights:
   insertKey: [NEW RELIC INSIGHTS INSERT API KEY]
   appId: [NEW RELIC APP ID]
 
+Database:
+  server: [DATABASE IP OR ADDRESS]
+  database: ReportServer
+  user: [DATABASE USER NAME]
+  password: [DATABASE USER PASSWORD]
+
 DatabaseAccounts:
   server: [DATABASE IP OR ADDRESS]
   database: [DATABASE NAME]
   user: [DATABASE USER NAME]
   password: [DATABASE USER PASSWORD]
-  command: ["SELECT accountName as account FROM vwAccountUsers WHERE username = "]

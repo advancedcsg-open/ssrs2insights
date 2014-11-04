@@ -21,7 +21,7 @@ exports.send = function(recordset) {
     res.on('data', function(chunk) {
       if (res.statusCode != '200') {
         console.error('STATUS: ' + res.statusCode);
-        console.log('BODY: ' + chunk);
+        console.info('BODY: ' + chunk);
       }
     });
   });
