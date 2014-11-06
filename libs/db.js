@@ -26,7 +26,6 @@ exports.getReports = function(insights) {
         } else {
           if (recordset.length > 0) {
             console.info('Processing ' + recordset.length + ' SSRS report executions');
-            config.App.lastProcessed = recordset[recordset.length - 1].LogEntryId;
             getAccount(recordset, insights.send);
           }
         }
@@ -61,6 +60,7 @@ function getAccount(recordset, processed){
       }
     });
   }, function(err, result){
+    config.App.lastProcessed = recordset[recordset.length - 1].LogEntryId;
     if (err) {
       console.error("Account retrieval failed: " + err.stack);
       processed(recordset);
