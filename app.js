@@ -8,5 +8,5 @@ var insights = require('./libs/insights');
 db.getReports(insights);
 var interval = setInterval(function () {
     db.getReports(insights);
-  }, 30000);
+  }, 180000);
 
