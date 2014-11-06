@@ -3,23 +3,23 @@ var sql = require('mssql');
 
 // config for DB connections
 var config = require('config');
-
+var lastProcessed = config.App.lastProcessed;
 
 exports.getReports = function(insights) {
   'use strict';
 
   // get where clause - using config file for the time being
-  var dbWhere = 'where LogEntryId > ' + config.App.lastProcessed;
+  var dbWhere = 'where LogEntryId > ' + lastProcessed;
   var conn = new sql.Connection(config.Database, function (err) {
     // check for error
     if (err) {
       console.error(err.stack);
     } else {
-      console.info('Gathering reports run since LogEntryId: ' + config.App.lastProcessed);
+      console.info('Gathering reports run since LogEntryId: ' + lastProcessed);
 
       // get the data
       var request = new sql.Request(conn);
-      request.query('SELECT TOP 100 \'' + config.App.appName + '\' AS appName, * FROM dbo.InsightsExecutionLog ' + dbWhere, function (err, recordset) {
+      request.query('SELECT TOP 100 *, \'' + config.App.appName + '\' AS appName FROM dbo.InsightsExecutionLog ' + dbWhere, function (err, recordset) {
         // check for error
         if (err) {
           console.error(err.stack);
@@ -60,7 +60,8 @@ function getAccount(recordset, processed){
       }
     });
   }, function(err, result){
-    config.App.lastProcessed = recordset[recordset.length - 1].LogEntryId;
+    lastProcessed = recordset[recordset.length - 1].LogEntryId;
+    config.App.lastProcessed = lastProcessed;
     if (err) {
       console.error("Account retrieval failed: " + err.stack);
       processed(recordset);
