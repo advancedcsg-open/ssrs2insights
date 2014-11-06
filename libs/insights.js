@@ -15,7 +15,7 @@ exports.send = function(recordset) {
     }
   };
 
-  console.log('Sending to New Relic');
+  console.info('Sending to New Relic');
   var req = https.request(options, function(res) {
     res.setEncoding('utf8');
     res.on('data', function(chunk) {
@@ -23,6 +23,9 @@ exports.send = function(recordset) {
         console.error('STATUS: ' + res.statusCode);
         console.info('BODY: ' + chunk);
       }
+    });
+    res.on('end', function() {
+      console.info('Send complete.');
     });
   });
 
