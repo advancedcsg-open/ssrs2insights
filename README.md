@@ -14,9 +14,11 @@ To configure the application in the config directory copy default_blank.yaml to 
 - [APPNAME TO IDENTIFY EVENTS IN INSIGHTS] replaced with the unique application name for this instance of SSRS, for example 'Production'.
 
 ### Insights
-- [NEW RELIC ACCOUNT NUMBER] replaced with your New Relic account number.
-- [NEW RELIC INSIGHTS INSERT API KEY] replaced with the insert key generated from Insights.
-- [NEW RELIC APP ID] replaced with the Application ID for the associated application being monitored in New Relic RPM.
+- [NEW RELIC ACCOUNT ID] replaced with your New Relic account ID, which you'll find in your insights.newrelic.com/accounts/ACCOUNT_ID URL when logged-in.
+- [NEW RELIC INSIGHTS INSERT KEY] replaced with the [insert key generated from Insights](https://docs.newrelic.com/docs/insights/new-relic-insights/adding-querying-data/inserting-custom-events#register).
+- [NEW RELIC APM APP ID] replaced with the Application ID for the associated application being monitored in New Relic APM. You can find your App ID(s) by executing a query like this in your Insights account, then choosing the correct Application ID:
+
+`SELECT count(*) FROM Transaction FACET appId SINCE 1 week ago`
 
 ### Deploy InsightsExecutionLog.sql
 Using the tool of your choice, execute the script sql/InsightsExecutionLog.sql in the ReportServer database on the server specified above.

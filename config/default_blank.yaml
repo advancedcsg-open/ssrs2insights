@@ -4,10 +4,10 @@ App:
   accountCommand: ["SELECT accountName as account FROM vwAccountUsers WHERE username = "]
 
 Insights:
-  hostname: insights.newrelic.com
-  path: "/beta_api/accounts/[NEW RELIC ACCOUNT NUMBER]/events"
-  insertKey: [NEW RELIC INSIGHTS INSERT API KEY]
-  appId: [NEW RELIC APP ID]
+  hostname: insights-collector.newrelic.com
+  path: "/v1/accounts/[NEW RELIC ACCOUNT ID]/events"
+  insertKey: [NEW RELIC INSIGHTS INSERT KEY]
+  appId: [NEW RELIC APM APP ID]
 
 Database:
   server: [DATABASE IP OR ADDRESS]
