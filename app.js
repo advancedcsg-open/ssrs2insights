@@ -14,9 +14,7 @@ var interval = setInterval(function () {
 
 function graceful() {
   clearInterval(interval);
-  setTimeout(function(){
-    process.exit(0);
-  },10000);
+  process.exit(0);
 }
 
 process.on('SIGINT', graceful);
