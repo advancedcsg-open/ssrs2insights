@@ -61,13 +61,15 @@ function getAccount(recordset, processed){
     });
   }, function(err, result){
     lastProcessed = recordset[recordset.length - 1].LogEntryId;
-    config.App.lastProcessed = lastProcessed;
     if (err) {
       console.error("Account retrieval failed: " + err.stack);
-      processed(recordset);
-    } else {
-      console.info("Account retrieval completed for " + result.length + " events.");
-      processed(result);
     }
+    processed(recordset, function(e){
+      if (e) {
+        console.error('Update to Insights failed');
+      } else {
+        config.App.lastProcessed = lastProcessed;
+      }
+    });
   });
 }

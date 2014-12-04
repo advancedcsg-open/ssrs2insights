@@ -2,7 +2,7 @@
 var https = require('https');
 var myConfig = require('config').Insights;
 
-exports.send = function(recordset) {
+exports.send = function(recordset, callback) {
   var data = JSON.stringify(recordset);
   var options = {
     hostname: myConfig.hostname,
@@ -17,20 +17,20 @@ exports.send = function(recordset) {
 
   console.info('Sending to New Relic');
   var req = https.request(options, function(res) {
+    var data = '';
+
     res.setEncoding('utf8');
     res.on('data', function(chunk) {
-      if (res.statusCode != '200') {
-        console.error('STATUS: ' + res.statusCode);
-        console.info('BODY: ' + chunk);
-      }
+      data += '' + chunk;
     });
     res.on('end', function() {
-      console.info('Send complete.');
+      callback(res.status != 200);
     });
   });
 
   req.on('error', function(e) {
     console.error('Problem with request: ' + e.message);
+    callback(e);
   });
 
   req.write(data);
