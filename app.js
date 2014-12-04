@@ -4,9 +4,20 @@
 var db = require('./libs/db');
 var insights = require('./libs/insights');
 
+process.stdin.resume();
+
 // regular process ssrs report run events
 db.getReports(insights);
 var interval = setInterval(function () {
     db.getReports(insights);
   }, 180000);
 
+function graceful() {
+  clearInterval(interval);
+  setTimeout(function(){
+    process.exit(0);
+  },10000);
+}
+
+process.on('SIGINT', graceful);
+process.on('SIGTERM', graceful);
