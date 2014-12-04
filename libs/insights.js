@@ -11,6 +11,7 @@ exports.send = function(recordset, callback) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'Content-Length': lengthInUtf8Bytes(data),
       'X-Insert-Key': myConfig.insertKey
     }
   };
@@ -41,3 +42,10 @@ exports.send = function(recordset, callback) {
   req.write(data);
   req.end();
 };
+
+
+function lengthInUtf8Bytes(str) {
+  // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
+  var m = encodeURIComponent(str).match(/%[89ABab]/g);
+  return str.length + (m ? m.length : 0);
+}
