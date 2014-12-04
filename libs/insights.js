@@ -25,7 +25,7 @@ exports.send = function(recordset, callback) {
       data += '' + chunk;
     });
     res.on('end', function() {
-      if (res.status >= 200 && res.status < 300) {
+      if (data == '{"success":true}') {
         callback(false);
       } else {
         console.error('Insights send failed: ' + data);
