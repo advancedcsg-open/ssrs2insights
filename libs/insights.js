@@ -24,7 +24,12 @@ exports.send = function(recordset, callback) {
       data += '' + chunk;
     });
     res.on('end', function() {
-      callback(res.status != 200);
+      if (res.status == 200) {
+        callback(false);
+      } else {
+        console.error('Insights send failed: ' + data);
+        callback(true);
+      }
     });
   });
 
