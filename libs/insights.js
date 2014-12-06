@@ -16,7 +16,6 @@ exports.send = function(recordset, callback) {
     }
   };
 
-  console.info('Sending to New Relic');
   var req = https.request(options, function(res) {
     var data = '';
 

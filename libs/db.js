@@ -15,8 +15,6 @@ exports.getReports = function(insights) {
     if (err) {
       console.error(err.stack);
     } else {
-      console.info('Gathering reports run since LogEntryId: ' + lastProcessed);
-
       // get the data
       var request = new sql.Request(conn);
       request.query('SELECT TOP 100 *, \'' + config.App.appName + '\' AS appName FROM dbo.InsightsExecutionLog ' + dbWhere, function (err, recordset) {
@@ -25,7 +23,6 @@ exports.getReports = function(insights) {
           console.error(err.stack);
         } else {
           if (recordset.length > 0) {
-            console.info('Processing ' + recordset.length + ' SSRS report executions');
             getAccount(recordset, insights.send);
           }
         }
