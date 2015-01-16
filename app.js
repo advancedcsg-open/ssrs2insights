@@ -1,4 +1,5 @@
-/* jslint node: true */
+/*jslint node: true*/
+"use strict";
 
 // Module dependencies.
 var db = require('./libs/db');
