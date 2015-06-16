@@ -32,7 +32,7 @@ exports.send = function (recordset, callback) {
         data += "" + chunk;
       });
       res.on('end', function () {
-        if (data === '{"success":true}') {
+        if (data === '{"success": true}') {
           callback(false);
         } else {
           console.error('Insights send failed: ' + data);
