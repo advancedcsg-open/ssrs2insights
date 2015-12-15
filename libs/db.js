@@ -18,7 +18,7 @@ function getAccount(recordset, processed) {
       } else {
         // get the data
         var request = new sql.Request(conn);
-        request.query(config.App.accountCommand + '\'' + record.user.replace("'", "\'") + '\'', function (err, accountset) {
+        request.query(config.App.accountCommand + '\'' + record.user.replace("'", "''") + '\'', function (err, accountset) {
           if (err) {
             console.error('Error retrieving account information for ' + record.user + ': ' + err.stack);
             callback(err);
@@ -72,4 +72,3 @@ exports.getReports = function (insights) {
       }
     });
 };
-
