@@ -43,6 +43,7 @@ function getAccount(recordset, processed) {
       if (e) {
         console.error('Update to Insights failed');
       } else {
+        console.info("Successfully sent to Insights (%s)", lastProcessed);
         config.App.lastProcessed = lastProcessed;
       }
     });
