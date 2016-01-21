@@ -60,7 +60,7 @@ exports.getReports = function (insights) {
       } else {
         // get the data
         var request = new sql.Request(conn);
-        request.query('SELECT TOP 100 *, \'' + config.App.appName + '\' AS appName FROM dbo.InsightsExecutionLog ' + dbWhere, function (err, recordset) {
+        request.query('SELECT TOP 200 *, \'' + config.App.appName + '\' AS appName FROM dbo.InsightsExecutionLog ' + dbWhere, function (err, recordset) {
           // check for error
           if (err) {
             console.error(err.stack);
