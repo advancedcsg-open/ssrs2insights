@@ -11,7 +11,7 @@ process.stdin.resume();
 db.getReports(insights);
 var interval = setInterval(function () {
     db.getReports(insights);
-  }, 120000);
+  }, 60000);
 
 function graceful() {
   clearInterval(interval);
