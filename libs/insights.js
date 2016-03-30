@@ -32,7 +32,8 @@ exports.send = function (recordset, callback) {
         data += "" + chunk;
       });
       res.on('end', function () {
-        if (data === '{"success":true}') {
+        var res = JSON.parse(data);
+        if (res.success) {
           callback(false);
         } else {
           console.error('Insights send failed: ' + data);
