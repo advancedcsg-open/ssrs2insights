@@ -2,14 +2,14 @@
 "use strict";
 
 // Module dependencies.
-var db = require('./libs/db');
-var insights = require('./libs/insights');
+const db = require('./libs/db');
+const insights = require('./libs/insights');
 
 process.stdin.resume();
 
 // regular process ssrs report run events
 db.getReports(insights);
-var interval = setInterval(function () {
+const interval = setInterval(() => {
     db.getReports(insights);
   }, 60000);
 

@@ -1,24 +1,24 @@
 /*jslint node: true*/
 "use strict";
-var sql = require('mssql');
+const sql = require('mssql');
 
 // config for DB connections
-var config = require('config');
-var lastProcessed = config.App.lastProcessed;
+const config = require('config');
+const lastProcessed = config.App.lastProcessed;
 
 function getAccount(recordset, processed) {
   // loop record sets to get account
-  var async = require('async');
-  async.map(recordset, function (record, callback) {
-    var conn = new sql.Connection(config.DatabaseAccounts, function (err) {
+  const async = require('async');
+  async.map(recordset, (record, callback) => {
+    const conn = new sql.Connection(config.DatabaseAccounts, (err) => {
       // check for error
       if (err) {
         console.error('DB connection failed: ' + err.stack);
         callback(err);
       } else {
         // get the data
-        var request = new sql.Request(conn);
-        request.query(config.App.accountCommand + '\'' + record.user.replace("'", "''") + '\'', function (err, accountset) {
+        const request = new sql.Request(conn);
+        request.query(config.App.accountCommand + '\'' + record.user.replace("'", "''") + '\'', (err, accountset) => {
           if (err) {
             console.error('Error retrieving account information for ' + record.user + ': ' + err.stack);
             callback(err);
@@ -34,12 +34,12 @@ function getAccount(recordset, processed) {
         });
       }
     });
-  }, function (err, result) {
+  }, (err, result) => {
     lastProcessed = recordset[recordset.length - 1].LogEntryId;
     if (err) {
       console.error("Account retrieval failed: " + err.stack);
     }
-    processed(recordset, function (e) {
+    processed(recordset, (e) => {
       if (e) {
         console.error('Update to Insights failed');
       } else {
@@ -50,17 +50,17 @@ function getAccount(recordset, processed) {
   });
 }
 
-exports.getReports = function (insights) {
+exports.getReports = (insights) => {
   // get where clause - using config file for the time being
   var dbWhere = 'where LogEntryId > ' + lastProcessed,
-    conn = new sql.Connection(config.Database, function (err) {
+    conn = new sql.Connection(config.Database, (err) => {
       // check for error
       if (err) {
         console.error(err.stack);
       } else {
         // get the data
         var request = new sql.Request(conn);
-        request.query('SELECT TOP 200 *, \'' + config.App.appName + '\' AS appName FROM dbo.InsightsExecutionLog ' + dbWhere, function (err, recordset) {
+        request.query('SELECT TOP 200 *, \'' + config.App.appName + '\' AS appName FROM dbo.InsightsExecutionLog ' + dbWhere, (err, recordset) => {
           // check for error
           if (err) {
             console.error(err.stack);

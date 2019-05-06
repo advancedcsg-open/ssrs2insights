@@ -1,18 +1,18 @@
 /*jslint node: true*/
 "use strict";
 
-var https = require('https');
-var myConfig = require('config').Insights;
+const https = require('https');
+const myConfig = require('config').Insights;
 
 
 function lengthInUtf8Bytes(str) {
   // Matches only the 10.. bytes that are non-initial characters in a multi-byte sequence.
-  var m = encodeURIComponent(str).match(/%[89ABab]/g);
+  const m = encodeURIComponent(str).match(/%[89ABab]/g);
   return str.length + (m ? m.length : 0);
 }
 
 exports.send = function (recordset, callback) {
-  var data = JSON.stringify(recordset),
+  const data = JSON.stringify(recordset),
     options = {
       hostname: myConfig.hostname,
       port: '443',
@@ -24,15 +24,17 @@ exports.send = function (recordset, callback) {
         'X-Insert-Key': myConfig.insertKey
       }
     },
-    req = https.request(options, function (res) {
-      var data = '';
+    const req = https.request(options, (res) => {
+      const data = '';
 
       res.setEncoding('utf8');
-      res.on('data', function (chunk) {
+
+      res.on('data', (chunk) => {
         data += "" + chunk;
       });
-      res.on('end', function () {
-        var res = JSON.parse(data);
+
+      res.on('end', (d) => {
+        const res = JSON.parse(data);
         if (res.success) {
           callback(false);
         } else {
@@ -42,7 +44,7 @@ exports.send = function (recordset, callback) {
       });
     });
 
-  req.on('error', function (e) {
+  req.on('error', (e) => {
     console.error('Problem with request: ' + e.message);
     callback(e);
   });
