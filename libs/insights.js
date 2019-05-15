@@ -7,7 +7,7 @@ function lengthInUtf8Bytes(str) {
   return str.length + (m ? m.length : 0);
 }
 
-const send = async (recordset) => {
+exports.send = async (recordset) => {
   return fetch(config.hostname, {
     method: "post",
     headers: {
